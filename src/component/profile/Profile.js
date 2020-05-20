@@ -1,6 +1,7 @@
 import React from 'react';
 import api from '../../util/api';
 import { AuthenticationService} from '../../service/authentication';
+import { Spinner, Row, Col, Media, Image } from 'react-bootstrap';
 
 class Profile extends React.Component {
 
@@ -10,7 +11,8 @@ class Profile extends React.Component {
             id: '',
             username: '',
             email: '',
-            role: ''
+            role: '',
+            isLoading: true
         }
     }
 
@@ -29,7 +31,8 @@ class Profile extends React.Component {
                     id: user.id,
                     username: user.username,
                     email: user.email,
-                    role: user.role
+                    role: user.role,
+                    isLoading: false
                 });
             }
         })
@@ -39,14 +42,31 @@ class Profile extends React.Component {
     }
 
     render() {
+        if (this.state.isLoading) {
+            return <Spinner animation="border" variant="warning" />
+        }
         return(
-            <div>
-                <h3>Profile</h3>
-                <p>{this.state.id}</p>
-                <p>{this.state.username}</p>
-                <p>{this.state.email}</p>
-                <p>{this.state.role}</p>
-            </div>
+            <Media>
+                <Row>
+                    <Col xs={12} sm={6}>
+                        <Image 
+                            width="100%"
+                            src="https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                            alt="Generic placeholder"
+                        />
+                    </Col>
+                    <Col>
+                        <Media.Body>
+                            <h3>{this.state.username}</h3>
+                            <p><b>First Name:</b> {this.state.firstName}</p>
+                            <p><b>Last Name:</b> {this.state.lastName}</p>
+                            <p><b>Email:</b> {this.state.email}</p>
+                            <p><b>UserID:</b> {this.state.id}</p>
+                            <p><b>Role:</b> {this.state.role}</p>
+                        </Media.Body>
+                    </Col>
+                </Row>  
+            </Media>
         );
     }
 }
