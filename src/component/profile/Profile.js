@@ -1,7 +1,7 @@
 import React from 'react';
 import api from '../../util/api';
 import { AuthenticationService} from '../../service/authentication';
-import { Spinner, Row, Col, Media, Image } from 'react-bootstrap';
+import { Spinner, Row, Col, Media, Image, Button } from 'react-bootstrap';
 
 class Profile extends React.Component {
 
@@ -17,13 +17,13 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        const token = AuthenticationService.currentUserJwt;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-        api.get('users/profile', config)
+        // const token = AuthenticationService.currentUserJwt;
+        // const config = {
+        //     headers: {
+        //         Authorization: `Bearer ${token}`
+        //     }
+        // }
+        api.get('users/profile'/*, config*/)
         .then(res => {
             if (res.status === 200) {
                 const user = res.data;
@@ -43,7 +43,12 @@ class Profile extends React.Component {
 
     render() {
         if (this.state.isLoading) {
-            return <Spinner animation="border" variant="warning" />
+            return(
+                <div>
+                    <Spinner animation="border" variant="warning" />
+                    <Button variant="outline-danger" onClick={AuthenticationService.refreshToken}>Refresh Token</Button>
+                </div>
+            );
         }
         return(
             <Media>
@@ -51,7 +56,7 @@ class Profile extends React.Component {
                     <Col xs={12} sm={6}>
                         <Image 
                             width="100%"
-                            src="https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                            src={process.env.PUBLIC_URL + '/avatarMock.png'}
                             alt="Generic placeholder"
                         />
                     </Col>

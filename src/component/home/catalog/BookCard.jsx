@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 const BookCard = (props) => {
     return(
         <Card>
-            <Card.Img variant="top" src="https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+            <Card.Img variant="top" src={process.env.PUBLIC_URL + '/BookMock.png'} />
             <Card.Body>
                 <Card.Title>{props.name}</Card.Title>
                 <Card.Text>{props.genre}</Card.Text>

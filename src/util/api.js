@@ -7,17 +7,44 @@ let instance = axios.create({
     responseType: "json"
 })
 
+instance.interceptors.request.use(
+    config => {
+        if (config.auth != null) {
+            console.log("Basic authorization");
+            return config;
+        }
+        const token = AuthenticationService.currentUserJwt;
+        if (token != null) {
+            config.headers.authorization = `Bearer ${token}`;
+        }
+        // config.headers['Content-Type'] = 'application/json';
+        return config;
+    }, 
+    error => {
+        Promise.reject(error);
+    }
+);
+
 instance.interceptors.response.use( 
     response => response,
     error => {
-        if (error.response.status === 401) {
-            console.log("401");
-            AuthenticationService.logout();
-            history.push("/signin");
+        const originalRequest = error.config;
+     
+        if (error.response.status === 401 && 
+            originalRequest.url === 'http://localhost:3102/api/login') {
+            history.push('/login');
+            return Promise.reject(error);
         }
-        return error;
+     
+        if (error.response.status === 401 && !originalRequest._retry) {
+            AuthenticationService.deleteAccessToken();
+            originalRequest._retry = true;
+            return AuthenticationService.refreshToken(originalRequest);
+        }
+        return Promise.reject(error);
     }
 );
+
 
 export default instance;
     

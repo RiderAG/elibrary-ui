@@ -30,7 +30,7 @@ class Catalog extends React.Component {
             <Row>
                 {this.state.bookCards.map(book => {
                     return (
-                        <Col lg={3} md={4} sm={6}>
+                        <Col key={book.name} lg={3} md={4} sm={6}>
                             <BookCard name={book.name} genre={book.genre}/>
                         </Col>
                     )
