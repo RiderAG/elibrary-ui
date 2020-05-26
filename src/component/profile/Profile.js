@@ -11,19 +11,20 @@ class Profile extends React.Component {
             id: '',
             username: '',
             email: '',
+            firstName: '',
+            lastName: '',
+            birthDate: '',
+            gender: '',
+            country: '',
+            city: '',
+            address: '',
             role: '',
             isLoading: true
         }
     }
 
     componentDidMount() {
-        // const token = AuthenticationService.currentUserJwt;
-        // const config = {
-        //     headers: {
-        //         Authorization: `Bearer ${token}`
-        //     }
-        // }
-        api.get('users/profile'/*, config*/)
+        api.get('users/profile')
         .then(res => {
             if (res.status === 200) {
                 const user = res.data;
@@ -31,6 +32,13 @@ class Profile extends React.Component {
                     id: user.id,
                     username: user.username,
                     email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    birthDate: user.birthDate,
+                    gender: user.gender,
+                    country: user.country,
+                    city: user.city,
+                    address: user.address,
                     role: user.role,
                     isLoading: false
                 });
@@ -38,7 +46,7 @@ class Profile extends React.Component {
         })
         .catch(error => {
             console.log("Error: ", error);
-        })
+        });
     }
 
     render() {
@@ -63,11 +71,17 @@ class Profile extends React.Component {
                     <Col>
                         <Media.Body>
                             <h3>{this.state.username}</h3>
+                            <p><b>UserID:</b> {this.state.id}</p>
                             <p><b>First Name:</b> {this.state.firstName}</p>
                             <p><b>Last Name:</b> {this.state.lastName}</p>
                             <p><b>Email:</b> {this.state.email}</p>
-                            <p><b>UserID:</b> {this.state.id}</p>
+                            <p><b>Birth Date:</b> {this.state.birthDate}</p>
+                            <p><b>Gender:</b> {this.state.gender}</p>
+                            <p><b>Country:</b> {this.state.country}</p>
+                            <p><b>City:</b> {this.state.city}</p>
+                            <p><b>Address:</b> {this.state.address}</p>
                             <p><b>Role:</b> {this.state.role}</p>
+                            <p><b></b></p>
                         </Media.Body>
                     </Col>
                 </Row>  

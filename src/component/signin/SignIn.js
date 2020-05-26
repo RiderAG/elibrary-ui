@@ -1,7 +1,7 @@
 import React from 'react';
 import { AuthenticationService } from '../../service/authentication';
 
-import { Button, Form, FormControl, Jumbotron, Container, ButtonGroup, Row, Col } from 'react-bootstrap';
+import { Button, Form, FormControl, Jumbotron, Container, ButtonGroup, Row, Col, Card } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 class SignIn extends React.Component {
@@ -10,16 +10,35 @@ class SignIn extends React.Component {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            error: ''
         }
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        AuthenticationService.login(this.state.username, this.state.password);
+        AuthenticationService.login(this.state.username, this.state.password)
+        .catch(error => {
+            const status = error.response.status;
+            if (status === 400 || status === 401) {
+                console.log(error.response.data.error_description);
+                this.setState({error: error.response.data.error_description});
+            }
+        });
     }
 
     render() {
+        var errorBlock = null;
+        if (this.state.error !== '') {
+            errorBlock = 
+                <Form.Group>
+                    <Card bg="danger" text="light">
+                        <Card.Body>
+                            <Card.Title>{this.state.error}</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Form.Group>;
+        }
         return(
             <Jumbotron fluid>
                 <Container>
@@ -40,6 +59,7 @@ class SignIn extends React.Component {
                                     onChange={(event) => this.setState({password: event.target.value})}
                                     />
                                 </Form.Group>
+                                {errorBlock}
                                 <Form.Group>
                                     <ButtonGroup>
                                         <Button variant="warning" type="submit">SignIn</Button>

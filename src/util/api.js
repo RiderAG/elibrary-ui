@@ -35,8 +35,8 @@ instance.interceptors.response.use(
             history.push('/login');
             return Promise.reject(error);
         }
-     
-        if (error.response.status === 401 && !originalRequest._retry) {
+
+        if (error.response.status === 401 && !originalRequest._retry && originalRequest.auth == null) {
             AuthenticationService.deleteAccessToken();
             originalRequest._retry = true;
             return AuthenticationService.refreshToken(originalRequest);

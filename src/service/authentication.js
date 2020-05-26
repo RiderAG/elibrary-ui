@@ -19,11 +19,10 @@ export const AuthenticationService = {
     get currentUserJwt() { return currentUserSubject.value },
     refreshToken,
     deleteAccessToken,
-    isAuthenticated() { return (this.currentUser != null && this.currentUserJwt != null) }
+    isAuthenticated
 };
 
 function login(username, password) {
-
     const grant_type = 'password';
     const data = qs.stringify({username, password, grant_type});
     const config = {
@@ -33,16 +32,13 @@ function login(username, password) {
         }
     };
 
-    api.post('login', data, config)
-    .then(res => {
-        if (res.status === 200) {
-            setTokenCookies(res.data);
-            history.push("/");
-        }
-    })
-    .catch(error => {
-        console.log("error", error);
-    });
+    return api.post('login', data, config)
+        .then(res => {
+            if (res.status === 200) {
+                setTokenCookies(res.data);
+                history.push("/");
+            }
+        });
 }
 
 function refreshToken(originalRequest) {
@@ -68,12 +64,15 @@ function refreshToken(originalRequest) {
             }
         })
         .catch(error => {
-            console.log(error.response.status);
             if (error.response.status === 401) {
                 console.log("Refresh failed. Logout")
                 logout();
             }
         });
+}
+
+function isAuthenticated() { 
+    return ((this.currentUser != null && this.currentUserJwt != null) || cookies.get('refresh_token') != null) 
 }
 
 function logout() {
