@@ -4,9 +4,7 @@ import Catalog from './catalog/Catalog';
 
 const Home = () => {
     return(
-        <div>
-            <Catalog/>
-        </div>
+        <Catalog/>
     );
 }
 

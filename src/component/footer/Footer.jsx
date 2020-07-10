@@ -1,15 +1,13 @@
 import React from 'react';
-import { Navbar, Container, NavbarBrand } from 'react-bootstrap';
+
+import s from './Footer.module.css';
+import logo from '../../logo.svg';
 
 const Footer = () => {
     return(
-    <div className="fixed-bottom">  
-        <Navbar variant="light">
-            <Container>
-                <NavbarBrand>eLibrary, 2020</NavbarBrand>
-            </Container>
-        </Navbar>
-    </div>
+    <footer className={s.myFooter}>  
+        <h4><img src={logo} alt="logo" height={64}/>eLibrary, 2020</h4>
+    </footer>
     )
 }
 
