@@ -1,0 +1,15 @@
+.signInContainer {
+    background-color: #888888; 
+    height: 100%;
+    margin:0; 
+    padding:0;
+}
+
+.signInForm {
+    margin-top: 65%;
+    margin-bottom: 65%;
+    padding: 15%;
+    text-align: center;
+    background-color: rgba(61, 61, 61, 0.5);
+    text-align: center;
+}

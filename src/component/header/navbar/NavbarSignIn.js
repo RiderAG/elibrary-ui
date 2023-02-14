@@ -1,7 +1,8 @@
 import React from 'react';
-import { AuthenticationService } from '../../../service/authentication';
-import { Nav } from 'react-bootstrap';
+import { AuthenticationService } from '../../../service/AuthenticationService';
+import { Nav, Image } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import CartLogo from '../../../cartLogo.svg';
 
 class NavbarSignIn extends React.Component {
     constructor(props) {
@@ -13,24 +14,25 @@ class NavbarSignIn extends React.Component {
         event.preventDefault();
         AuthenticationService.logout();
         this.setState({
-            username: '',
-            password: '',
             isAuthenticated: AuthenticationService.isAuthenticated()
         });
     }
 
     render() {
+        let items = [];
+
+    items.push(<Nav.Link as={NavLink} to="/cart"><Image src={CartLogo} height="28px"/></Nav.Link>)
+
         if (this.state.isAuthenticated) {
-            return (
-                <Nav>
-                    <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>
-                    <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
-                </Nav>
-            );
+            items.push(<Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>);
+            items.push(<Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>);
+        } else {
+            items.push(<Nav.Link as={NavLink} to="/signin">SignIn</Nav.Link>);
         }
+
         return (
             <Nav>
-                <Nav.Link as={NavLink} to="/signin">SignIn</Nav.Link>
+                {items}
             </Nav>
         );
     };
