@@ -1,6 +1,6 @@
 import React from 'react';
 import api from '../../util/api';
-import { AuthenticationService} from '../../service/authentication';
+import { AuthenticationService} from '../../service/AuthenticationService';
 import { Spinner, Row, Col, Media, Image, Button } from 'react-bootstrap';
 
 class Profile extends React.Component {

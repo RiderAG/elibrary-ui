@@ -17,8 +17,6 @@ const BookCard = (props)  => {
                 <Card.Title>{props.book.name}</Card.Title>
                 <Card.Text>
                     Author: {props.book.author}
-                    <br/>
-                    Category: {props.book.category}
                 </Card.Text>
             </Card.Body>
         </Card>
@@ -55,9 +53,8 @@ const BookCard = (props)  => {
                 </Media>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                Close
-                </Button>
+                <Button variant="warning" onClick={props.handleAddToCart} value={props.book.id}>Add To Cart</Button>
+                <Button variant="secondary" onClick={handleClose}>Close</Button>
             </Modal.Footer>
         </Modal>
       </>

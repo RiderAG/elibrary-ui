@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthenticationService } from '../../service/authentication';
+import { AuthenticationService } from '../../service/AuthenticationService.js';
 
 import { Button, Form, FormControl, Jumbotron, Container, ButtonGroup, Row, Col, Card } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';

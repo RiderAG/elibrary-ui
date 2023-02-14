@@ -32,12 +32,12 @@ class PaginationBar extends React.Component {
 
         return(
             <Row>
-                <Col xs="12" sm="9" className="text-center">
+                <Col xs="12" sm="9" className="text-center text-sm-left mb-2">
                     <ButtonGroup>
                         {items}
                     </ButtonGroup>
                 </Col>
-                <Col className="text-center">
+                <Col className="text-center text-sm-right">
                     <DropdownButton as={ButtonGroup} title="OnPage" variant="dark">
                         <Dropdown.Item as={Button} value={1} onClick={this.props.handleOnPage}>{1}</Dropdown.Item>
                         <Dropdown.Item as={Button} value={3} onClick={this.props.handleOnPage}>{3}</Dropdown.Item>

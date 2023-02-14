@@ -22,6 +22,7 @@ class Catalog extends React.Component {
         this.handleCategory = this.handleCategory.bind(this);
         this.handlePage = this.handlePage.bind(this);
         this.handleOnPage = this.handleOnPage.bind(this);
+        this.handleAddToCart = this.handleAddToCart.bind(this);
     }
 
     handleCategory(e) {
@@ -37,6 +38,22 @@ class Catalog extends React.Component {
     handleOnPage(e) {
         const onPage = e.target.value;
         this.updateBooks(this.state.selectedCategory, 1, onPage);
+    }
+
+    handleAddToCart(e) {
+        const id = e.target.value;
+        API.post('cart/add', null, {
+            params: {
+                id
+            }
+        })
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        console.log(e.target);
     }
 
     updateBooks(selectedCategory, pageIndex, onPage) {
@@ -77,7 +94,7 @@ class Catalog extends React.Component {
                     <CardColumns>
                         {this.state.books.map(book => {
                             return (
-                                <BookCard key={book.id} book={book}/>
+                                <BookCard key={book.id} book={book} handleAddToCart={this.handleAddToCart}/>
                             )
                         })}
                     </CardColumns>

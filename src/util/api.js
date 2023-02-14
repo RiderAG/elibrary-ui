@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthenticationService } from '../service/authentication';
+import { AuthenticationService } from '../service/AuthenticationService';
 import { history } from './history';
 
 let instance = axios.create({

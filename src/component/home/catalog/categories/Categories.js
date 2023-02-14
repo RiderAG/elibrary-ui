@@ -13,7 +13,6 @@ class Categories extends React.Component {
     componentDidMount() {
         API.get('catalog/categories')
         .then(res => {
-            console.log(res.data);
             this.setState({categories: res.data});
         })
         .catch(err => {
@@ -23,7 +22,7 @@ class Categories extends React.Component {
 
     render(){
         return(
-            <div class="mb-2">
+            <div className="mb-2">
                 <h4>Categories</h4>
                 <Button onClick={this.props.handleCategory} value="" variant="warning" block>all</Button>
                 {this.state.categories.map(el => {
